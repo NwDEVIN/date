@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+           <link rel="stylesheet" href="date.css"/>
+           <style>
+@import url('https://fonts.googleapis.com/css2?family=Edu+AU+VIC+WA+NT+Hand:wght@400..700&display=swap');
+</style>
+    <title>Date Calculator</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="logo.jpg">
+    
+    
+
+</head>
+<body oncontextmenu="return false" onselectstart="return false" ondragstart="return false">
+    <header>
+     
+<h1><a href="calculator.html" style="color:white; text-decoration: none;">Date Calculator</a></h1>
+    
+</header>
+
+<br><br>
+<div><p>How many days are there between two dates?
+</div>
+
+<br><br><div id="yymmdd">
+    <span></span>
+<span>yyyy</span>
+<span>mm</span>
+<span>dd</span></div>
+
+   <div class="date-picker">Start<br>date:
+        <span></span>
+        <select id="start-year"></select>
+        <select id="start-month"></select>
+        <select id="start-day"></select>
+    </div>
+    <br>
+    <div class="date-picker"> End<br>date:
+        <span></span>
+        <select id="end-year"></select>
+        <select id="end-month"></select>
+        <select id="end-day"></select>
+    </div>
+    <br><br>
+    <button id="result" onclick="calculateElapse()">Calculate</button>
+   <br><br>
+    <div class="date_span"></div>
+<br><br><br><br><br><br><br><br>
+</div>
+
+    
+  
+   <div id="disclaimer" class="disclaimer"><span></span><span></span><span></span>
+    <p>This site is designed for desktop use only.</p><span></span><span></span><span></span>
+</div> 
+
+<div class="footer">
+        <p>© 2024 Date Calculator | All Rights Reserved</p>
+<script src="date.js"></script>
+</body>
+  </html>
