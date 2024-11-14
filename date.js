@@ -19,13 +19,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Populate month dropdowns
-    for (let month = 1; month <= 12; month++) {
+    const monthNames = ['Jan (1)', 'Feb (2)', 'Mar (3)', 'Apr (4)', 'May (5)', 'Jun (6)', 'Jul (7)', 'Aug (8)', 'Sep (9)', 'Oct (10)', 'Nov (11)', 'Dec (12)'];
+    monthNames.forEach((month, index) => {
         let option = document.createElement('option');
-        option.value = month;
+        option.value = index + 1; // Month index starts at 0, so add 1 for correct month value
         option.text = month;
         startMonthSelect.add(option.cloneNode(true));
         endMonthSelect.add(option.cloneNode(true));
-    }
+    });
 
     // Function to populate days based on selected year and month
     function populateDays(selectDay, year, month) {
@@ -144,7 +145,15 @@ document.addEventListener('DOMContentLoaded', () => {
         endMonthSelect.value = today.getMonth() + 1; // Months are 0-indexed
         populateDays(endDaySelect, today.getFullYear(), today.getMonth() + 1);
         endDaySelect.value = today.getDate();
+
+        updateDays(); // Make sure to call this after setting today's date to update days correctly
     }
+
+    // Reset button functionality
+    document.getElementById('reset-button').addEventListener('click', function() {
+        setTodayDate(); // Set the date pickers to today's date
+        document.querySelector('.date_span').innerHTML = ''; // Clear the result display
+    });
 
     setTodayDate(); // Initialize both dates to today's date
 });
