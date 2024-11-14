@@ -1,3 +1,5 @@
+
+
 document.addEventListener('DOMContentLoaded', () => {
     const startYearSelect = document.getElementById('start-year');
     const startMonthSelect = document.getElementById('start-month');
@@ -157,3 +159,5 @@ document.addEventListener('DOMContentLoaded', () => {
 
     setTodayDate(); // Initialize both dates to today's date
 });
+
+
