@@ -1,9 +1,9 @@
 const CACHE_NAME = 'date-calculator-cache-v1';
 const urlsToCache = [
-  '/date/calculator.html',
-  '/date/date.css', 
-  '/date/date.js',
-  '/date/logo.png'
+  '/calculator.html',
+  '/date.css', 
+  '/date.js',
+  '/logo.jpg'
 ];
 
 // Install event - cache the assets
