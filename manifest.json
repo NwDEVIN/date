@@ -1,10 +1,6 @@
 {
-  "start_url": "/date/calculator.html",
-  "name": "Date Calculator: A quick and easy tool for calculating date differences",
-  "short_name": "Date Calc",
-  "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#000000",
+  "name": "Date Mate- A quick and easy tool for calculating date differences",
+  "short_name": "Date Mate",
   "icons": [
     {
       "src": "/date/icon-192.png",
@@ -12,9 +8,19 @@
       "type": "image/png"
     },
     {
-      "src": "/date/icon-512.png",
+      "src": "/date/icon-512.png.png",
       "sizes": "512x512",
       "type": "image/png"
+    },
+    {
+      "src": "/date/adaptive-icon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
     }
-  ]
+  ],
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#000000"
 }
