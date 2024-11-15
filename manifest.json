@@ -19,7 +19,7 @@
       "purpose": "any maskable"
     }
   ],
-  "start_url": "/",
+  "start_url": "/date/calculator.html",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#000000"
