@@ -160,10 +160,9 @@ document.addEventListener('DOMContentLoaded', () => {
     setTodayDate(); // Initialize both dates to today's date
 });
 
-// Service Worker Registration Code
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('service-worker.js')
+    navigator.serviceWorker.register('/date/service-worker.js')
       .then((registration) => {
         console.log('Service Worker registered with scope:', registration.scope);
       })
