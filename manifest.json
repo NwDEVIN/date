@@ -1,7 +1,7 @@
 {
   "start_url": "/date/calculator.html",
-  "name": "Date Calculator",
-  "short_name": "Calculator",
+  "name": "Date Calculator: A quick and easy tool for calculating date differences",
+  "short_name": "Date Calc",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#000000",
