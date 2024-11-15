@@ -171,3 +171,31 @@ if ('serviceWorker' in navigator) {
       });
   });
 }
+
+
+const themeToggle = document.getElementById('themeToggle');
+
+        // Function to set the theme based on user preference or system setting
+        function setTheme(theme) {
+            document.body.className = theme;
+            themeToggle.textContent = theme === 'dark' ? '🌙' : '🔆';
+            localStorage.setItem('theme', theme);
+        }
+
+        // Check local storage for user preference
+        const storedTheme = localStorage.getItem('theme');
+        const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+        if (storedTheme) {
+            setTheme(storedTheme);
+        } else if (systemPrefersDark) {
+            setTheme('dark');
+        } else {
+            setTheme('light');
+        }
+
+        // Event listener for button click to toggle theme
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = document.body.classList.contains('dark') ? 'dark' : 'light';
+            setTheme(currentTheme === 'dark' ? 'light' : 'dark');
+        });
