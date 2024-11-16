@@ -208,9 +208,23 @@ const themeToggle = document.getElementById('themeToggle');
     return window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
   }
 
-  // Hide the button if the app is installed and running as a PWA
-  if (isPWA() && btn) {
-    btn.style.display = 'none';
+  // Check installation state on page load
+  if (isPWA()) {
+    // If running as a PWA, hide the button
+    if (btn) {
+      btn.style.display = 'none';
+    }
+    // Set the flag to indicate the PWA is installed
+    localStorage.setItem('pwaInstalled', 'true');
+  } else {
+    // If not running as a PWA, check if it was previously installed
+    if (localStorage.getItem('pwaInstalled') === 'true') {
+      // If the app was previously installed but is not now, clear the flag and show the button
+      localStorage.removeItem('pwaInstalled');
+      if (btn) {
+        btn.style.display = 'block';
+      }
+    }
   }
 
   // Listen for `appinstalled` event
@@ -219,6 +233,8 @@ const themeToggle = document.getElementById('themeToggle');
     if (btn) {
       btn.style.display = 'none';
     }
+    // Store the installation state in localStorage
+    localStorage.setItem('pwaInstalled', 'true');
   });
 
   // Listen for `beforeinstallprompt` event
@@ -228,7 +244,7 @@ const themeToggle = document.getElementById('themeToggle');
     console.log('Install event saved');
 
     // Show the install button if it was previously hidden and the app is not running as a PWA
-    if (btn && !isPWA()) {
+    if (btn && !isPWA() && localStorage.getItem('pwaInstalled') !== 'true') {
       btn.style.display = 'block';
     }
   });
