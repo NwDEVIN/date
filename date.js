@@ -199,3 +199,46 @@ const themeToggle = document.getElementById('themeToggle');
             const currentTheme = document.body.classList.contains('dark') ? 'dark' : 'light';
             setTheme(currentTheme === 'dark' ? 'light' : 'dark');
         });
+
+
+// Define the APP object if not already defined
+const APP = {
+  deferredInstall: null,
+  startChromeInstall() {
+    if (this.deferredInstall) {
+      console.log(this.deferredInstall);
+      this.deferredInstall.prompt();
+      this.deferredInstall.userChoice.then((choice) => {
+        if (choice.outcome === 'accepted') {
+          console.log('User accepted the installation');
+        } else {
+          console.log('User canceled the installation');
+        }
+        this.deferredInstall = null; // Clear the reference after the choice is made
+      });
+    }
+  },
+};
+
+// Wait for the DOM to be fully loaded
+document.addEventListener('DOMContentLoaded', () => {
+  // Listen for `appinstalled` event
+  window.addEventListener('appinstalled', (evt) => {
+    console.log('PWA installed');
+  });
+
+  // Listen for `beforeinstallprompt` event
+  window.addEventListener('beforeinstallprompt', (ev) => {
+    ev.preventDefault(); // Prevent the default mini-infobar
+    APP.deferredInstall = ev; // Save the event for later use
+    console.log('Install event saved');
+  });
+
+  // Attach click listener to the install button
+  const btn = document.getElementById('btnInstall');
+  if (btn) {
+    btn.addEventListener('click', () => {
+      APP.startChromeInstall();
+    });
+  }
+});
