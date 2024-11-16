@@ -20,6 +20,7 @@ body {
     -moz-osx-font-smoothing: grayscale;
 
     transition: background-color 0.3s, color 0.3s;
+    overflow-x: hidden;
 }
 
 h1, h2, li {
@@ -119,6 +120,23 @@ button:hover {
     width: 100%;
     font-size: 1.125rem; /* 18px */
 }
+
+/* For Webkit browsers (Chrome, Safari, Edge) */
+html::-webkit-scrollbar, body::-webkit-scrollbar {
+  display: none;  /* Hides the scrollbar */
+}
+
+/* For Firefox */
+html, body {
+  scrollbar-width: none;  /* Hides the scrollbar in Firefox */
+}
+
+/* For Internet Explorer 10+ */
+html, body {
+  -ms-overflow-style: none;  /* Hides the scrollbar in IE 10+ */
+}
+
+
 
 @media (max-width: 768px) {
 
