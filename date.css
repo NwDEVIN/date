@@ -18,39 +18,43 @@ body {
     margin: auto;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-
     transition: background-color 0.3s, color 0.3s;
     overflow-x: hidden;
+    
 }
+
+
+body.light {
+            background-color: #f2f3f4;
+            color: #000000;
+        }
+        body.dark {
+            background-color: #0A0A0A;
+            color: #ffffff;
+        }
+
 
 h1, h2, li {
     margin: 0;
     padding: 0;
     font-family: 'Edu AU VIC WA NT Hand', cursive, sans-serif;
     font-size: 45px
-}
-
-        body.light {
-            background-color: #ffffff;
-            color: #000000;
-        }
-        body.dark {
-            background-color: #121212;
-            color: #ffffff;
-        }
+    color: #000000;
+    }
+        
+        
         .toggle-button {
             cursor: pointer;
             font-size: 24px;
             border: none;
             background: transparent;
             outline: none;
-            position: absolute;                   top: 25px;
+            position: absolute;         
+            top: 25px;
             right: 25px;
             padding: 0px;
             z-index: 10;
         }
-
-
 header {
     padding: 15px;
     text-align: center;
@@ -58,6 +62,19 @@ header {
     position: relative;
     z-index: 2;
 }
+
+
+/* Change the link color inside header */
+header a {
+    color: #ff7300; /* Set the link color */
+    text-decoration: none; /* Remove underline */
+}
+
+body.dark header a {
+    color: #ff7300; /* Set the link color */
+    text-decoration: none; /* Remove underline */
+}
+
 
 .date-picker {
     display: flex;
@@ -70,6 +87,15 @@ select {
     width: 200px;
     padding: 20px;
     font-size: 1.875rem; /* 30px */
+    background-color: #f2f3f4;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+body.dark select {
+    background-color: #0A0A0A; /* Dark background */
+    color: #ffffff; /* Light text */
+    border: 1px solid #444; /* Optional: subtle border for visibility */
+    transition: background-color 0.3s, color 0.3s;
 }
 
 .button-container {
@@ -82,7 +108,7 @@ button {
     padding: 10px 20px;
     font-size: 1rem;
     cursor: pointer;
-    border-radius: 8px;
+    border-radius: 100px;
     border: none;
     transition: background-color 0.3s ease, transform 0.2s, box-shadow 0.2s ease;
 }
@@ -101,10 +127,31 @@ button:hover {
     background-color: #2c7b1f;
 }
 
+
+body.dark #calculate-button {
+    
+    background-color: #0054a5;
+    color: white;
+}
+
+body.dark #calculate-button:hover {
+    
+    background-color: #1e5415;
+    color: white;
+}
+
+
 #reset-button {
     background-color: #ff1515;
     color: white;
 }
+
+body.dark #reset-button {
+    
+    background-color: #7d0a0a;
+    color: white;
+}
+
 
 #yymmdd {
     display: flex;
@@ -137,7 +184,6 @@ html, body {
 }
 
 
-
 @media (max-width: 768px) {
 
 body{
@@ -161,6 +207,7 @@ h1{
     }
 
     .button-container {
+       
         gap: 15px;
     }
 
