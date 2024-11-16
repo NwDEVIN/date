@@ -200,13 +200,22 @@ const themeToggle = document.getElementById('themeToggle');
             setTheme(currentTheme === 'dark' ? 'light' : 'dark');
         });
 
-document.addEventListener('DOMContentLoaded', () => {
+ document.addEventListener('DOMContentLoaded', () => {
   const btn = document.getElementById('btnInstall');
+
+  // Check if the app is running as a PWA
+  function isPWA() {
+    return window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
+  }
+
+  // Hide the button if the app is installed and running as a PWA
+  if (isPWA() && btn) {
+    btn.style.display = 'none';
+  }
 
   // Listen for `appinstalled` event
   window.addEventListener('appinstalled', (evt) => {
     console.log('PWA installed');
-    // Hide the install button when the app is installed
     if (btn) {
       btn.style.display = 'none';
     }
@@ -217,9 +226,9 @@ document.addEventListener('DOMContentLoaded', () => {
     ev.preventDefault(); // Prevent the default mini-infobar
     APP.deferredInstall = ev; // Save the event for later use
     console.log('Install event saved');
-    
-    // Show the install button if it was previously hidden
-    if (btn) {
+
+    // Show the install button if it was previously hidden and the app is not running as a PWA
+    if (btn && !isPWA()) {
       btn.style.display = 'block';
     }
   });
