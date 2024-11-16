@@ -43,14 +43,12 @@ h1, h2, li {
     }
         
         
-        .toggle-button {
-            cursor: pointer;
+        .toggle-button {   
             font-size: 24px;
             border: none;
             background: transparent;
             outline: none;
-            position: absolute;         
-            top: 25px;
+            position: absolute;                   top: 25px;
             right: 25px;
             padding: 0px;
             z-index: 10;
@@ -107,7 +105,6 @@ body.dark select {
 button {
     padding: 10px 20px;
     font-size: 1rem;
-    cursor: pointer;
     border-radius: 100px;
     border: none;
     transition: background-color 0.3s ease, transform 0.2s, box-shadow 0.2s ease;
@@ -115,12 +112,13 @@ button {
 
 button:hover {
     transform: scale(1.05);
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    
 }
 
 #calculate-button {
     background-color: #007BFF;
     color: white;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 #calculate-button:hover {
@@ -144,6 +142,7 @@ body.dark #calculate-button:hover {
 #reset-button {
     background-color: #ff1515;
     color: white;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 body.dark #reset-button {
