@@ -200,8 +200,38 @@ const themeToggle = document.getElementById('themeToggle');
             setTheme(currentTheme === 'dark' ? 'light' : 'dark');
         });
 
+document.addEventListener('DOMContentLoaded', () => {
+  const btn = document.getElementById('btnInstall');
 
-// Define the APP object if not already defined
+  // Listen for `appinstalled` event
+  window.addEventListener('appinstalled', (evt) => {
+    console.log('PWA installed');
+    // Hide the install button when the app is installed
+    if (btn) {
+      btn.style.display = 'none';
+    }
+  });
+
+  // Listen for `beforeinstallprompt` event
+  window.addEventListener('beforeinstallprompt', (ev) => {
+    ev.preventDefault(); // Prevent the default mini-infobar
+    APP.deferredInstall = ev; // Save the event for later use
+    console.log('Install event saved');
+    
+    // Show the install button if it was previously hidden
+    if (btn) {
+      btn.style.display = 'block';
+    }
+  });
+
+  // Attach click listener to the install button
+  if (btn) {
+    btn.addEventListener('click', () => {
+      APP.startChromeInstall();
+    });
+  }
+});
+
 const APP = {
   deferredInstall: null,
   startChromeInstall() {
@@ -219,26 +249,3 @@ const APP = {
     }
   },
 };
-
-// Wait for the DOM to be fully loaded
-document.addEventListener('DOMContentLoaded', () => {
-  // Listen for `appinstalled` event
-  window.addEventListener('appinstalled', (evt) => {
-    console.log('PWA installed');
-  });
-
-  // Listen for `beforeinstallprompt` event
-  window.addEventListener('beforeinstallprompt', (ev) => {
-    ev.preventDefault(); // Prevent the default mini-infobar
-    APP.deferredInstall = ev; // Save the event for later use
-    console.log('Install event saved');
-  });
-
-  // Attach click listener to the install button
-  const btn = document.getElementById('btnInstall');
-  if (btn) {
-    btn.addEventListener('click', () => {
-      APP.startChromeInstall();
-    });
-  }
-});
