@@ -253,3 +253,14 @@ document.addEventListener('DOMContentLoaded', () => {
 }); 
 
 
+
+/* JavaScript to detect PWA installation */
+window.addEventListener('appinstalled', () => {
+    const footer = document.querySelector('.footer');
+    if (footer) {
+        // Change the footer content when the PWA is installed
+        footer.innerHTML = `
+            <p>© 2024 Date Mate | All Rights Reserved</p>
+        `;
+    }
+});
