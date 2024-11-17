@@ -1,4 +1,4 @@
-const CACHE_NAME = 'date-calculator-cache-v4.1'; // Updated cache version
+const CACHE_NAME = 'date-calculator-cache-v4.2'; // Updated cache version
 const urlsToCache = [
   '/date/calculator.html',
   '/date/date.css',
