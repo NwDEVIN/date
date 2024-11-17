@@ -268,7 +268,7 @@ window.addEventListener('DOMContentLoaded', () => {
         const pwaFooter = document.createElement('div');
         pwaFooter.className = 'footer';
         pwaFooter.innerHTML = `
-            <p>© 2024 Date Mate | All Rights Reserved</p>
+            <p>Copyright © 2024 Date Mate | All Rights Reserved</p>
         `;
         document.body.appendChild(pwaFooter);
     }
