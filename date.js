@@ -201,6 +201,7 @@ const themeToggle = document.getElementById('themeToggle');
 
 document.addEventListener('DOMContentLoaded', () => {
   const btn = document.getElementById('btnInstall');
+  let deferredInstallPrompt;
 
   if (!btn) {
     console.error('Install button not found');
@@ -217,25 +218,29 @@ document.addEventListener('DOMContentLoaded', () => {
     btn.style.display = 'block';
   }
 
+  // Save the beforeinstallprompt event so it can be triggered later
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredInstallPrompt = e;
+    console.log('Install prompt saved');
+  });
+
   // Listen for button click
   btn.addEventListener('click', () => {
     if (isPWA) {
       alert('The app is already installed on your device.');
+    } else if (deferredInstallPrompt) {
+      deferredInstallPrompt.prompt();
+      deferredInstallPrompt.userChoice.then((choice) => {
+        if (choice.outcome === 'accepted') {
+          console.log('User accepted the installation');
+          btn.style.display = 'none';
+        } else {
+          console.log('User dismissed the installation');
+        }
+      });
     } else {
-      console.log('Prompting the user to install the app');
-      if (APP.deferredInstall) {
-        APP.deferredInstall.prompt();
-        APP.deferredInstall.userChoice.then((choice) => {
-          if (choice.outcome === 'accepted') {
-            console.log('User accepted the installation');
-            btn.style.display = 'none';
-          } else {
-            console.log('User dismissed the installation');
-          }
-        });
-      } else {
-        alert('Installation prompt is not available at the moment.');
-      }
+      alert('Installation prompt is not available at the moment.');
     }
   });
 
@@ -245,7 +250,6 @@ document.addEventListener('DOMContentLoaded', () => {
     btn.style.display = 'none';
     localStorage.setItem('pwaInstalled', 'true');
   });
-});
-
+}); 
 
 
