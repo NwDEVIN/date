@@ -268,7 +268,7 @@ window.addEventListener('DOMContentLoaded', () => {
         const pwaFooter = document.createElement('div');
         pwaFooter.className = 'footer';
         pwaFooter.innerHTML = `
-            <p>Copyright © 2024-2025 Date Mate </p>
+            <p>&nbsp;Copyright &nbsp;&nbsp;© &nbsp;&nbsp;2024-2025 &nbsp;&nbsp;&nbsp;Date Mate </p>
         `;
         document.body.appendChild(pwaFooter);
     }
