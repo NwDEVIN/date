@@ -200,26 +200,34 @@ const themeToggle = document.getElementById('themeToggle');
             setTheme(currentTheme === 'dark' ? 'light' : 'dark');
         });
 
- document.addEventListener('DOMContentLoaded', () => {
+
+
+
+
+document.addEventListener('DOMContentLoaded', () => {
   const btn = document.getElementById('btnInstall');
 
-  // Check if the app is running as a PWA
+  // Function to check if the app is running as a PWA
   function isPWA() {
     return window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
   }
 
-  // Check installation state on page load
+  // Debugging log to verify if localStorage is accessible
+  console.log('Initial localStorage value for pwaInstalled:', localStorage.getItem('pwaInstalled'));
+
+  // Check the installation state on page load
   if (isPWA()) {
-    // If running as a PWA, hide the button
+    console.log('App is running as a PWA');
     if (btn) {
       btn.style.display = 'none';
     }
     // Set the flag to indicate the PWA is installed
     localStorage.setItem('pwaInstalled', 'true');
   } else {
-    // If not running as a PWA, check if it was previously installed
+    console.log('App is not running as a PWA');
     if (localStorage.getItem('pwaInstalled') === 'true') {
-      // If the app was previously installed but is not now, clear the flag and show the button
+      // If previously installed but not now, reset the flag
+      console.log('PWA was installed before, showing the install button');
       localStorage.removeItem('pwaInstalled');
       if (btn) {
         btn.style.display = 'block';
@@ -229,7 +237,7 @@ const themeToggle = document.getElementById('themeToggle');
 
   // Listen for `appinstalled` event
   window.addEventListener('appinstalled', (evt) => {
-    console.log('PWA installed');
+    console.log('PWA installed event triggered');
     if (btn) {
       btn.style.display = 'none';
     }
@@ -245,6 +253,7 @@ const themeToggle = document.getElementById('themeToggle');
 
     // Show the install button if it was previously hidden and the app is not running as a PWA
     if (btn && !isPWA() && localStorage.getItem('pwaInstalled') !== 'true') {
+      console.log('Showing the install button as the app is not installed');
       btn.style.display = 'block';
     }
   });
@@ -261,7 +270,7 @@ const APP = {
   deferredInstall: null,
   startChromeInstall() {
     if (this.deferredInstall) {
-      console.log(this.deferredInstall);
+      console.log('Prompting the user to install');
       this.deferredInstall.prompt();
       this.deferredInstall.userChoice.then((choice) => {
         if (choice.outcome === 'accepted') {
