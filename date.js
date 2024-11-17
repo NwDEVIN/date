@@ -254,13 +254,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-/* JavaScript to detect PWA installation */
-window.addEventListener('appinstalled', () => {
+function isStandalone() {
+    return window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
+}
+
+window.addEventListener('DOMContentLoaded', () => {
     const footer = document.querySelector('.footer');
-    if (footer) {
-        // Change the footer content when the PWA is installed
-        footer.innerHTML = `
+    
+    if (isStandalone() && footer) {
+        // Hide the normal footer and change content for PWA
+        footer.style.display = 'none';
+        
+        const pwaFooter = document.createElement('div');
+        pwaFooter.className = 'footer';
+        pwaFooter.innerHTML = `
             <p>© 2024 Date Mate | All Rights Reserved</p>
         `;
+        document.body.appendChild(pwaFooter);
     }
 });
