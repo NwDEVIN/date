@@ -240,7 +240,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       });
     } else {
-      alert('Installation prompt is not available at the moment.');
+      alert('This app is already installed on your device, or installation is temporarily unavailable.');
     }
   });
 
