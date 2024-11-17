@@ -200,33 +200,34 @@ const themeToggle = document.getElementById('themeToggle');
 
 
 document.addEventListener('DOMContentLoaded', () => {
-  const btn = document.getElementById('btnInstall');
+  const footer = document.querySelector('.footer');
+  const btnInstall = document.getElementById('btnInstall');
   let deferredInstallPrompt;
-
-  if (!btn) {
-    console.error('Install button not found');
-    return;
-  }
 
   // Check if the app is running as a PWA
   const isPWA = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
-  if (isPWA) {
-    console.log('App is running as a PWA, hiding the button');
-    btn.style.display = 'none';
-  } else {
-    console.log('App is not running as a PWA, showing the button');
-    btn.style.display = 'block';
+
+  // If the app is installed (via PWA), change the footer for both PWA and web
+  if (isPWA || localStorage.getItem('pwaInstalled') === 'true') {
+    if (footer) {
+      footer.innerHTML = `
+        <p>&nbsp;Copyright &nbsp;&copy;&nbsp;2024-2025 &nbsp;&nbsp;&nbsp;Date Mate</p>
+      `;
+    }
+    if (btnInstall) {
+      btnInstall.style.display = 'none'; // Hide the install button
+    }
   }
 
-  // Save the beforeinstallprompt event so it can be triggered later
+  // Listen for 'beforeinstallprompt' to save the install prompt
   window.addEventListener('beforeinstallprompt', (e) => {
     e.preventDefault();
     deferredInstallPrompt = e;
     console.log('Install prompt saved');
   });
 
-  // Listen for button click
-  btn.addEventListener('click', () => {
+  // Listen for install button click
+  btnInstall.addEventListener('click', () => {
     if (isPWA) {
       alert('The app is already installed on your device.');
     } else if (deferredInstallPrompt) {
@@ -234,42 +235,21 @@ document.addEventListener('DOMContentLoaded', () => {
       deferredInstallPrompt.userChoice.then((choice) => {
         if (choice.outcome === 'accepted') {
           console.log('User accepted the installation');
-          btn.style.display = 'none';
+          btnInstall.style.display = 'none';
+          localStorage.setItem('pwaInstalled', 'true'); // Mark the app as installed in localStorage
         } else {
           console.log('User dismissed the installation');
         }
       });
     } else {
-      alert('This app is already installed on your device, or installation is temporarily unavailable.');
+      alert('This app is already installed on your device. Installation prompt is not available at the moment.');
     }
   });
 
-  // Listen for appinstalled event
+  // Listen for the 'appinstalled' event and update localStorage
   window.addEventListener('appinstalled', () => {
     console.log('App installed, hiding the button');
-    btn.style.display = 'none';
+    btnInstall.style.display = 'none';
     localStorage.setItem('pwaInstalled', 'true');
   });
-}); 
-
-
-
-function isStandalone() {
-    return window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
-}
-
-window.addEventListener('DOMContentLoaded', () => {
-    const footer = document.querySelector('.footer');
-    
-    if (isStandalone() && footer) {
-        // Hide the normal footer and change content for PWA
-        footer.style.display = 'none';
-        
-        const pwaFooter = document.createElement('div');
-        pwaFooter.className = 'footer';
-        pwaFooter.innerHTML = `
-            <p>&nbsp;Copyright &nbsp;&nbsp;© &nbsp;&nbsp;2024-2025 &nbsp;&nbsp;&nbsp;Date Mate </p>
-        `;
-        document.body.appendChild(pwaFooter);
-    }
 });
