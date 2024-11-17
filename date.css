@@ -20,39 +20,40 @@ body {
     -moz-osx-font-smoothing: grayscale;
     transition: background-color 0.3s, color 0.3s;
     overflow-x: hidden;
-    
 }
 
-
 body.light {
-            background-color: #f2f3f4;
-            color: #000000;
-        }
-        body.dark {
-            background-color: #0A0A0A;
-            color: #ffffff;
-        }
+    background-color: #f2f3f4;
+    color: #000000;
+}
 
+body.dark {
+    background-color: #0A0A0A;
+    color: #ffffff;
+}
 
 h1, h2, li {
     margin: 0;
     padding: 0;
     font-family: 'Edu AU VIC WA NT Hand', cursive, sans-serif;
-    font-size: 45px
+    font-size: 45px;
     color: #000000;
-    }
-        
-        
-        .toggle-button {   
-            font-size: 24px;
-            border: none;
-            background: transparent;
-            outline: none;
-            position: absolute;                   top: 18px;
-            right: 25px;
-            padding: 0px;
-            z-index: 10;
-        }
+}
+
+.toggle-button {
+    font-size: 24px;
+    border: none;
+    background: transparent;
+    outline: none;
+    position: absolute;
+    top: 18px;
+    right: 25px;
+    padding: 0px;
+    z-index: 10;
+    box-shadow: none;
+    transition: 10s;
+}
+
 header {
     padding: 15px;
     text-align: center;
@@ -60,7 +61,6 @@ header {
     position: relative;
     z-index: 2;
 }
-
 
 /* Change the link color inside header */
 header a {
@@ -72,7 +72,6 @@ body.dark header a {
     color: #ff7300; /* Set the link color */
     text-decoration: none; /* Remove underline */
 }
-
 
 .date-picker {
     display: flex;
@@ -107,12 +106,11 @@ button {
     font-size: 1rem;
     border-radius: 100px;
     border: none;
-    transition: background-color 0.3s ease, transform 0.2s, box-shadow 0.2s ease;
+    transition: background-color 0.3s ease, transform 0.2s;
 }
 
 button:hover {
     transform: scale(1.05);
-    
 }
 
 #calculate-button {
@@ -125,19 +123,15 @@ button:hover {
     background-color: #2c7b1f;
 }
 
-
 body.dark #calculate-button {
-    
     background-color: #0054a5;
     color: white;
 }
 
 body.dark #calculate-button:hover {
-    
     background-color: #1e5415;
     color: white;
 }
-
 
 #reset-button {
     background-color: #ff1515;
@@ -146,11 +140,9 @@ body.dark #calculate-button:hover {
 }
 
 body.dark #reset-button {
-    
     background-color: #7d0a0a;
     color: white;
 }
-
 
 #yymmdd {
     display: flex;
@@ -160,58 +152,55 @@ body.dark #reset-button {
     color: #a6a6a6;
 }
 
+/* Footer container */
 .footer {
-    padding: 30px;
-    text-align: center;
-    width: 100%;
-    font-size: 1.125rem; /* 18px */
+    display: flex;
+    justify-content: space-between;  /* Aligns the text and button on the same line */
+    align-items: center;  /* Vertically center the items */
+     padding-right: 10%; 
+        padding-left: 10%;
+        
+    width: 100%;  /* Ensure the footer takes the full width */
 }
 
-/* For Webkit browsers (Chrome, Safari, Edge) */
-html::-webkit-scrollbar, body::-webkit-scrollbar {
-  display: none;  /* Hides the scrollbar */
+/* Footer text styling */
+footer p {
+    margin: 0;  /* Removes default margin from <p> */
+    font-size: 1rem;  /* Adjust text size as needed */
 }
 
-/* For Firefox */
-html, body {
-  scrollbar-width: none;  /* Hides the scrollbar in Firefox */
-}
-
-/* For Internet Explorer 10+ */
-html, body {
-  -ms-overflow-style: none;  /* Hides the scrollbar in IE 10+ */
-}
+/* Button styling */
 #btnInstall {
-    
-    
     background-color: #246519;
     color: white;
+    font-size: 1rem;  /* Increased font size for better visibility */
+    padding: 10px;
+    border-radius: 100px;
+    border: none;
+    transition: background-color 0.3s ease, transform 0.2s;
 }
 
+
+/* Media query for mobile responsiveness */
 @media (max-width: 768px) {
+    body {
+        font-size: 15px;
+    }
 
-body{
-    font-size: 15px;
-    
-}
+    h1 {
+        font-size: 25px;
+    }
 
-h1{
-    
-    font-size: 25px;
-}
-    .date-picker {       
-        
+    .date-picker {
         gap: 10px;
     }
 
     #yymmdd {
-        
         gap: 50px;
         font-size: 1.75rem; /* 30px */
     }
 
     .button-container {
-       
         gap: 15px;
     }
 
@@ -220,9 +209,50 @@ h1{
         padding: 1px;
         font-size: 15px;
     }
-    
+
     .footer {
-        
-        font-size: 15px;
+         
+        text-align: center;}
+
+   #btnInstall {
+    background-color: #246519;
+    color: white;
+    font-size: 1rem;
+    padding: 10px 20px;
+    border-radius: 100px;
+    border: none;
+    transition: background-color 0.3s ease, transform 0.2s;
+    display: flex;
+    align-items: center;
+}}
+
+@media (min-width: 768px) {
+    .footer {
+        padding-right: 30%; 
+        padding-left: 30%;
+       
     }
-    
+}
+
+@media (min-width: 1020px) {
+    .toggle-button {
+    font-size: 40px;       
+     top: 40px;
+        right: 100px; 
+    }
+}
+
+/* For Webkit browsers (Chrome, Safari, Edge) */
+html::-webkit-scrollbar, body::-webkit-scrollbar {
+    display: none;  /* Hides the scrollbar */
+}
+
+/* For Firefox */
+html, body {
+    scrollbar-width: none;  /* Hides the scrollbar in Firefox */
+}
+
+/* For Internet Explorer 10+ */
+html, body {
+    -ms-overflow-style: none;  /* Hides the scrollbar in IE 10+ */
+    }
