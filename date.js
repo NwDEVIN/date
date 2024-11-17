@@ -1,91 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const btn = document.getElementById('btnInstall');
-
-  // Function to check if the app is running as a PWA
-  function isPWA() {
-    return window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
-  }
-
-  // Debugging log to verify if localStorage is accessible
-  console.log('Initial localStorage value for pwaInstalled:', localStorage.getItem('pwaInstalled'));
-
-  // Check the installation state on page load
-  if (isPWA()) {
-    console.log('App is running as a PWA');
-    if (btn) {
-      btn.style.display = 'none';
-    }
-    // Set the flag to indicate the PWA is installed
-    localStorage.setItem('pwaInstalled', 'true');
-  } else {
-    console.log('App is not running as a PWA');
-    if (localStorage.getItem('pwaInstalled') === 'true') {
-      // If previously installed but not now, reset the flag
-      console.log('PWA was installed before, showing the install button');
-      localStorage.removeItem('pwaInstalled');
-      if (btn) {
-        btn.style.display = 'block';
-      }
-    }
-  }
-
-  // Listen for `appinstalled` event
-  window.addEventListener('appinstalled', (evt) => {
-    console.log('PWA installed event triggered');
-    if (btn) {
-      btn.style.display = 'none';
-    }
-    // Store the installation state in localStorage
-    localStorage.setItem('pwaInstalled', 'true');
-  });
-
-  // Listen for `beforeinstallprompt` event
-  window.addEventListener('beforeinstallprompt', (ev) => {
-    ev.preventDefault(); // Prevent the default mini-infobar
-    APP.deferredInstall = ev; // Save the event for later use
-    console.log('Install event saved');
-
-    // Show the install button if it was previously hidden and the app is not running as a PWA
-    if (btn && !isPWA() && localStorage.getItem('pwaInstalled') !== 'true') {
-      console.log('Showing the install button as the app is not installed');
-      btn.style.display = 'block';
-    }
-  });
-
-  // Attach click listener to the install button
-  if (btn) {
-    btn.addEventListener('click', () => {
-      APP.startChromeInstall();
-    });
-  }
-});
-
-const APP = {
-  deferredInstall: null,
-  startChromeInstall() {
-    if (this.deferredInstall) {
-      console.log('Prompting the user to install');
-      this.deferredInstall.prompt();
-      this.deferredInstall.userChoice.then((choice) => {
-        if (choice.outcome === 'accepted') {
-          console.log('User accepted the installation');
-        } else {
-          console.log('User canceled the installation');
-        }
-        this.deferredInstall = null; // Clear the reference after the choice is made
-      });
-    }
-  },
-};
-
-
-
-
-
-
-
-
-document.addEventListener('DOMContentLoaded', () => {
     const startYearSelect = document.getElementById('start-year');
     const startMonthSelect = document.getElementById('start-month');
     const startDaySelect = document.getElementById('start-day');
@@ -286,6 +199,53 @@ const themeToggle = document.getElementById('themeToggle');
         });
 
 
+document.addEventListener('DOMContentLoaded', () => {
+  const btn = document.getElementById('btnInstall');
+
+  if (!btn) {
+    console.error('Install button not found');
+    return;
+  }
+
+  // Check if the app is running as a PWA
+  const isPWA = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
+  if (isPWA) {
+    console.log('App is running as a PWA, hiding the button');
+    btn.style.display = 'none';
+  } else {
+    console.log('App is not running as a PWA, showing the button');
+    btn.style.display = 'block';
+  }
+
+  // Listen for button click
+  btn.addEventListener('click', () => {
+    if (isPWA) {
+      alert('The app is already installed on your device.');
+    } else {
+      console.log('Prompting the user to install the app');
+      if (APP.deferredInstall) {
+        APP.deferredInstall.prompt();
+        APP.deferredInstall.userChoice.then((choice) => {
+          if (choice.outcome === 'accepted') {
+            console.log('User accepted the installation');
+            btn.style.display = 'none';
+          } else {
+            console.log('User dismissed the installation');
+          }
+        });
+      } else {
+        alert('Installation prompt is not available at the moment.');
+      }
+    }
+  });
+
+  // Listen for appinstalled event
+  window.addEventListener('appinstalled', () => {
+    console.log('App installed, hiding the button');
+    btn.style.display = 'none';
+    localStorage.setItem('pwaInstalled', 'true');
+  });
+});
 
 
 
