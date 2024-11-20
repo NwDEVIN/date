@@ -1,8 +1,9 @@
-importScripts('https://www.gstatic.com/firebasejs/9.21.0/firebase-app.js');
-importScripts('https://www.gstatic.com/firebasejs/9.21.0/firebase-messaging.js');
+importScripts('https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js');
+importScripts('https://www.gstatic.com/firebasejs/11.0.2/firebase-messaging.js');
 
+// Firebase configuration (same as your HTML file)
 const firebaseConfig = {
-  apiKey: "AIzaSyBKc2drS_d19WbMncoYJe8Bf9dwx-d-gQw",
+    apiKey: "AIzaSyBKc2drS_d19WbMncoYJe8Bf9dwx-d-gQw",
     authDomain: "date-mate-v1.firebaseapp.com",
     projectId: "date-mate-v1",
     storageBucket: "date-mate-v1.firebasestorage.app",
@@ -11,18 +12,21 @@ const firebaseConfig = {
     measurementId: "G-Y6Y3B0LKYL"
 };
 
-// Initialize Firebase
+// Initialize Firebase in the service worker
 firebase.initializeApp(firebaseConfig);
+
+// Initialize Firebase Cloud Messaging
 const messaging = firebase.messaging();
 
-messaging.onBackgroundMessage((payload) => {
-  console.log('Background message received:', payload);
+// Handle background notifications
+messaging.onBackgroundMessage(function(payload) {
+    console.log("Background notification received", payload);
+    const notificationTitle = payload.notification.title;
+    const notificationOptions = {
+        body: payload.notification.body,
+        icon: payload.notification.icon
+    };
 
-  const notificationTitle = payload.notification.title || 'Notification';
-  const notificationOptions = {
-    body: payload.notification.body || '',
-    icon: payload.notification.icon || '/icon.png'
-  };
-
-  self.registration.showNotification(notificationTitle, notificationOptions);
+    // Show the notification
+    self.registration.showNotification(notificationTitle, notificationOptions);
 });
