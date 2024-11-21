@@ -64,58 +64,5 @@
     </button>
     </footer>
 <script src="date.js"></script>
-     <!-- Firebase Scripts -->
-    <script src="https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/11.0.2/firebase-messaging.js"></script>
-
-    <!-- Your custom script -->
-    <script src="date.js"></script>
-
-    <script type="module">
-        // Firebase configuration object
-        const firebaseConfig = {
-            apiKey: "AIzaSyBKc2drS_d19WbMncoYJe8Bf9dwx-d-gQw",
-            authDomain: "date-mate-v1.firebaseapp.com",
-            projectId: "date-mate-v1",
-            storageBucket: "date-mate-v1.firebasestorage.app",
-            messagingSenderId: "549450549008",
-            appId: "1:549450549008:web:cd8cb2051bee4202398795",
-            measurementId: "G-Y6Y3B0LKYL"
-        };
-
-        // Initialize Firebase
-        const app = firebase.initializeApp(firebaseConfig);
-        const messaging = firebase.messaging();
-
-        // Request permission for push notifications
-        messaging.requestPermission()
-            .then(() => {
-                console.log("Notification permission granted.");
-                return messaging.getToken({
-                    vapidKey: "BOQtldKRWL_5iEBWXLYIzcO-vvKCd7hJgsk38sP2oVAPx9aUNDhQbJ9Z022nFj13_oiJTBAu5GRIYGrVS24v2KY"
-                });
-            })
-            .then((token) => {
-                console.log('FCM Token:', token);
-                // Send the token to your server if needed
-            })
-            .catch((error) => {
-                console.error('Error getting token:', error);
-            });
-
-        // Handle background notifications (service worker)
-        messaging.onBackgroundMessage((payload) => {
-            console.log('Received background message ', payload);
-            // Customize the notification appearance
-            const notificationTitle = payload.notification.title;
-            const notificationOptions = {
-                body: payload.notification.body,
-                icon: payload.notification.icon
-            };
-
-            // Show notification
-            self.registration.showNotification(notificationTitle, notificationOptions);
-        });
-                                   </script>
 </body>
                </html>
