@@ -211,7 +211,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (isPWA) {
     if (footer) {
       footer.innerHTML = `
-        <p>&nbsp;Copyright &nbsp;© &nbsp;&nbsp;2024-2025&nbsp;&nbsp;Date Mate</p>
+        <p>&nbsp;&nbsp;&nbsp;Copyright &nbsp;© &nbsp;&nbsp;2024-2025&nbsp;&nbsp;|&nbsp;&nbsp;Date Mate</p>
       `;
     }
 
@@ -266,7 +266,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Update the footer when the app is installed as a PWA
     if (footer) {
       footer.innerHTML = `
-        <p>&nbsp;Copyright &nbsp;© &nbsp;&nbsp;2024-2025&nbsp;&nbsp;Date Mate</p>
+        <p>&nbsp;&nbsp;&nbsp;Copyright &nbsp;© &nbsp;&nbsp;2024-2025&nbsp;&nbsp;|&nbsp;&nbsp;Date Mate</p>
       `;
     }
   });
