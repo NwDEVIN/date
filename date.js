@@ -1,5 +1,3 @@
-
-
 document.addEventListener('DOMContentLoaded', () => {
     const startYearSelect = document.getElementById('start-year');
     const startMonthSelect = document.getElementById('start-month');
@@ -199,3 +197,77 @@ const themeToggle = document.getElementById('themeToggle');
             const currentTheme = document.body.classList.contains('dark') ? 'dark' : 'light';
             setTheme(currentTheme === 'dark' ? 'light' : 'dark');
         });
+
+
+document.addEventListener('DOMContentLoaded', () => {
+  const footer = document.querySelector('.footer');
+  const btnInstall = document.getElementById('btnInstall');
+  let deferredInstallPrompt;
+
+  // Check if the app is running as a PWA (Standalone mode)
+  const isPWA = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
+
+  // If the app is already installed as a PWA, update the footer content
+  if (isPWA) {
+    if (footer) {
+      footer.innerHTML = `
+        <p>&nbsp;Copyright &nbsp;© &nbsp;&nbsp;2024-2025 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Date Mate</p>
+      `;
+    }
+
+    // Hide the install button as the app is installed
+    if (btnInstall) {
+      btnInstall.style.display = 'none';
+    }
+  } else {
+    // Show install button on web version if app is not installed
+    if (btnInstall) {
+      btnInstall.style.display = 'block';
+      btnInstall.textContent = 'Install App';
+    }
+  }
+
+  // Listen for 'beforeinstallprompt' to save the install prompt
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault(); // Prevent the default install prompt from showing automatically
+    deferredInstallPrompt = e; // Save the install prompt
+    console.log('Install prompt saved');
+    
+    // Show the install button when the prompt is available
+    if (btnInstall) {
+      btnInstall.style.display = 'block';
+      btnInstall.textContent = 'Install App';
+    }
+  });
+
+  // Listen for install button click
+  btnInstall.addEventListener('click', () => {
+    if (deferredInstallPrompt) {
+      deferredInstallPrompt.prompt(); // Show the install prompt
+      deferredInstallPrompt.userChoice.then((choice) => {
+        if (choice.outcome === 'accepted') {
+          console.log('User accepted the installation');
+          btnInstall.style.display = 'none'; // Hide the install button after installation
+        } else {
+          console.log('User dismissed the installation');
+        }
+      });
+    } else {
+      // If the app is already installed or there's no install prompt available
+      alert('The app is already installed on your device.');
+    }
+  });
+
+  // Listen for the 'appinstalled' event and update the footer
+  window.addEventListener('appinstalled', () => {
+    console.log('App installed, hiding the button');
+    btnInstall.style.display = 'none'; // Hide the install button after the app is installed
+
+    // Update the footer when the app is installed as a PWA
+    if (footer) {
+      footer.innerHTML = `
+        <p>&nbsp;Copyright &nbsp;© &nbsp;&nbsp;2024-2025 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Date Mate</p>
+      `;
+    }
+  });
+});
