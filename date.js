@@ -211,7 +211,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (isPWA) {
     if (footer) {
       footer.innerHTML = `
-        <p>&nbsp;Copyright &nbsp;© &nbsp;&nbsp;2024-2025 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Date Mate</p>
+        <p>&nbsp;Copyright &nbsp;© &nbsp;&nbsp;2024-2025&nbsp;&nbsp;Date Mate</p>
       `;
     }
 
@@ -254,7 +254,7 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     } else {
       // If the app is already installed or there's no install prompt available
-      alert('The app is already installed on your device.');
+      alert('This app is already installed on your device. or Install prompt is not available now.');
     }
   });
 
@@ -266,7 +266,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Update the footer when the app is installed as a PWA
     if (footer) {
       footer.innerHTML = `
-        <p>&nbsp;Copyright &nbsp;© &nbsp;&nbsp;2024-2025 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Date Mate</p>
+        <p>&nbsp;Copyright &nbsp;© &nbsp;&nbsp;2024-2025&nbsp;&nbsp;Date Mate</p>
       `;
     }
   });
